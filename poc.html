@@ -1,0 +1,15 @@
+<!-- poc.html -->
+<script>
+fetch('https://app.faraday.ai/api/gql',{
+  method:'POST',
+  credentials:'include',        // يرسل الـ JWT تلقائياً
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({
+    operationName:"UserDetails",
+    variables:{},
+    query:"query UserDetails{account{id name setup_status}user{id email}}"
+  })
+}).then(r=>r.json())
+  .then(d=>alert(JSON.stringify(d,null,2)))
+  .catch(e=>alert(e));
+</script>
